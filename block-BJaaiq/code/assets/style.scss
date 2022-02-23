@@ -1,0 +1,29 @@
+*{
+    margin:0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Popppins',sans-serif;
+}
+html{
+    font-size: 62.5%;
+}
+body{
+    min-height: 120vh;
+}
+ul{
+    li{
+        list-style-type: disc;
+    }
+    h2{
+        display:block;
+        font-size: 3rem;
+        font-weight: 600;
+        font-style: italic;
+        margin: 1rem  0 ;
+    }
+     p{
+         font-size: 2rem;
+         font-weight: 500;
+         text-align: center;
+     }
+}
