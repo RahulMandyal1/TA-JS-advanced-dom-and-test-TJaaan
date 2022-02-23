@@ -4,6 +4,7 @@ let showUserInput = document.querySelector(".userInputContainer");
 
 let userData = [];
 let index = 0;
+let dragStartIndex;
 
 function createUi(parentElement, data) {
   let userInput = document.createElement("div");
@@ -33,45 +34,48 @@ form.addEventListener("submit", (event) => {
     createUi(showUserInput, eachItem);
   });
   let allUserinput = document.querySelectorAll(".userInput");
+  
   allUserinput.forEach((dragCard) => {
     dragCard.addEventListener("dragstart", dragStart);
-    dragCard.addEventListener("dragEnter", dragEnter);
-    dragCard.addEventListener("dragOver", dragOver);
-    dragCard.addEventListener("dragOver", dragLeave);
+    dragCard.addEventListener("dragenter", dragEnter);
+    dragCard.addEventListener("dragover", dragOver);
     dragCard.addEventListener("drop", drop);
+    dragCard.addEventListener("dragend", DragEnd);
   });
 
+  //Drag function gets called when  the  dragstart event is gets trigerred 
+  // It only gets trigerred when the user drag on a user card
   function dragStart(e) {
     this.style.opacity = ".4";
-    setTimeout(() => {
-        e.target.classList.add('hide');
-    }, 0);
+    dragStartIndex = this;
   }
 
-
+//This function only used to prevent  the default action 
   function dragEnter(e) {
     e.preventDefault();
-    e.target.classList.add("drag-over");
+    // console.log('Drag enter Event Fires ');
   }
 
 
+//This function only used to prevent  the default action 
   function dragOver(e) {
     e.preventDefault();
-    e.target.classList.add("drag-over");
+    // console.log('Drag  Over Event  Fires ');
   }
-  function dragLeave(e) {
-    e.target.classList.remove("drag-over");
-  }
-  function drop(e) {
-    // get the draggable element
 
-    const id = e.dataTransfer.getData("text/plain");
-    const draggable = document.getElementById(id);
-    console.log(draggable);
-    // add it to the drop target
-    e.target.appendChild(draggable);
-     // display the draggable element
-     draggable.classList.remove('hide');
+  //This function gets trigerred and is responsible for  the user card swapping here we have just 
+  // the innHTMl of both the dragged card and where the dragged event is stops that card InnerHTML
+  function drop(e) {
+    const  dragEndContent = this.innerHTML ;
+    let swapContent = dragEndContent ;  
+    this.innerHTML = dragStartIndex.innerHTML ;
+    dragStartIndex.innerHTML = swapContent ; 
+    // console.log('drop event gets fired here ');
+  }
+
+  //In this function we have given  the full opacity so it can be easily visible to user 
+  function DragEnd(){
+    this.style.opacity  = "1";
   }
 });
 
