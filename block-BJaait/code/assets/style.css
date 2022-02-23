@@ -60,4 +60,10 @@ section {
     .addInputContainer button i {
       color: #fff; }
 
+.hide {
+  display: none; }
+
+.drag-over {
+  border: dashed 3px red; }
+
 /*# sourceMappingURL=style.css.map */
